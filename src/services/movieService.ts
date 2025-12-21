@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Movie } from "../types/movie";
+import type { Movie } from "../types/movie";
 
 // Отримуємо токен із .env (має починатися з VITE_)
 const TOKEN = import.meta.env.VITE_TMDB_TOKEN;
