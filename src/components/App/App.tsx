@@ -28,6 +28,7 @@ export default function App() {
   const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
     setPage(1); 
+    toast.success(`Шукаємо: ${newQuery}`)
   };
 
   const movies = data?.results || [];
