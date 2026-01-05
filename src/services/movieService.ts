@@ -1,29 +1,28 @@
 import axios from "axios";
 import type { Movie } from "../types/movie";
 
-// Отримуємо токен із .env (має починатися з VITE_)
-const TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+axios.defaults.baseURL = "https://api.themoviedb.org/3";
 
-const movieInstance = axios.create({
-  baseURL: "https://api.themoviedb.org/3",
-  headers: {
-    Authorization: `Bearer ${TOKEN}`,
-    Accept: "application/json",
-  },
-});
 
-interface TMDBResponse {
+export interface TMDBResponse {
   results: Movie[];
+  total_pages: number; 
   total_results: number;
 }
 
-export const fetchMovies = async (query: string): Promise<Movie[]> => {
-  const { data } = await movieInstance.get<TMDBResponse>("/search/movie", {
+export const fetchMovies = async (query: string, page: number = 1): Promise<TMDBResponse> => {
+  const config = {
     params: {
-      query,
+      query: query,
+      page: page, 
       include_adult: false,
       language: "en-US",
     },
-  });
-  return data.results;
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MmZjYjQ1YThjZGQ2M2U2MzYxN2IyZTdmMTFlNDdlNyIsIm5iZiI6MTc2NjMyNzgzNy41NzIsInN1YiI6IjY5NDgwNjFkNTdkNDhkY2VmMWIxYzk2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PeKRNCwhsofK2MpZj8t5cePQ_WRIjgyVq8e_xfwCFJg`,
+    },
+  };
+
+  const response = await axios.get<TMDBResponse>("/search/movie", config);
+  return response.data; 
 };
