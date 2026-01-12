@@ -19,7 +19,7 @@ export const fetchMovies = async (query: string, page: number = 1): Promise<TMDB
       language: "en-US",
     },
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MmZjYjQ1YThjZGQ2M2U2MzYxN2IyZTdmMTFlNDdlNyIsIm5iZiI6MTc2NjMyNzgzNy41NzIsInN1YiI6IjY5NDgwNjFkNTdkNDhkY2VmMWIxYzk2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PeKRNCwhsofK2MpZj8t5cePQ_WRIjgyVq8e_xfwCFJg`,
+      Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
     },
   };
 
